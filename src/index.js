@@ -23,13 +23,21 @@ const configuredWorkspaces = values.workspace?.length
         .map((s) => s.trim())
         .filter(Boolean)
     : []
-const baseOut = values.out ?? process.env.REBRANDLY_EXPORT_BASE ?? 'rebrandly-links.csv'
+const baseOut =
+  values.out ?? process.env.REBRANDLY_EXPORT_BASE ?? 'rebrandly-links.csv'
 const MAX_PAGE_SIZE = Number(
   values['max-page-size'] ?? process.env.REBRANDLY_MAX_PAGE_SIZE ?? 25,
 )
 
 // ----- CSV config -----
-const fieldnames = ['id', 'createdAt', 'shortUrl', 'domain', 'slashtag', 'destination']
+const fieldnames = [
+  'id',
+  'createdAt',
+  'shortUrl',
+  'domain',
+  'slashtag',
+  'destination',
+]
 
 // ----- Helpers -----
 function csvEscape(value) {
@@ -41,7 +49,9 @@ function extractDomain(shortUrl) {
   if (!shortUrl) return ''
   try {
     // Add protocol if missing for URL parsing
-    const urlWithProtocol = shortUrl.startsWith('http') ? shortUrl : `https://${shortUrl}`
+    const urlWithProtocol = shortUrl.startsWith('http')
+      ? shortUrl
+      : `https://${shortUrl}`
     const url = new URL(urlWithProtocol)
     return url.hostname
   } catch {
@@ -52,7 +62,9 @@ function extractSlashtag(shortUrl) {
   if (!shortUrl) return ''
   try {
     // Add protocol if missing for URL parsing
-    const urlWithProtocol = shortUrl.startsWith('http') ? shortUrl : `https://${shortUrl}`
+    const urlWithProtocol = shortUrl.startsWith('http')
+      ? shortUrl
+      : `https://${shortUrl}`
     const url = new URL(urlWithProtocol)
     // Remove leading slash from pathname
     return url.pathname.substring(1)
@@ -172,7 +184,7 @@ async function exportWorkspace(workspaceId, outPath) {
       const lines = downloaded
         .map((link) => toCsvRow(link, fieldnames))
         .join('\n')
-      await writeChunk(out, lines + '\n')
+      await writeChunk(out, `${lines}\n`)
 
       totalExported += downloaded.length
       pageCount++
@@ -196,7 +208,9 @@ async function exportWorkspace(workspaceId, outPath) {
 }
 
 if (!apiKey || apiKey === '<<apiKey>>') {
-  console.error('Error: missing API key. Set REBRANDLY_API_KEY environment variable.')
+  console.error(
+    'Error: missing API key. Set REBRANDLY_API_KEY environment variable.',
+  )
   process.exit(1)
 }
 
@@ -205,7 +219,9 @@ let targets
 if (configuredWorkspaces.length > 0) {
   // Use explicitly configured workspaces
   targets = configuredWorkspaces
-  console.log(`Exporting ${targets.length} configured workspace${targets.length === 1 ? '' : 's'}...\n`)
+  console.log(
+    `Exporting ${targets.length} configured workspace${targets.length === 1 ? '' : 's'}...\n`,
+  )
 } else {
   // Auto-discover workspaces
   console.log('No workspaces specified. Discovering workspaces...')
@@ -214,7 +230,9 @@ if (configuredWorkspaces.length > 0) {
     console.error('No workspaces found.')
     process.exit(1)
   }
-  console.log(`Found ${targets.length} workspace${targets.length === 1 ? '' : 's'}.\n`)
+  console.log(
+    `Found ${targets.length} workspace${targets.length === 1 ? '' : 's'}.\n`,
+  )
 }
 
 // Run sequentially (gentler on rate limits)
