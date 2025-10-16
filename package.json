@@ -1,6 +1,6 @@
 {
   "name": "rebrandly-links-export",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Export your short links from Rebrandly",
   "main": "src/index.js",
   "type": "module",
