@@ -1,6 +1,6 @@
 {
   "name": "rebrandly-links-export",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Export your short links from Rebrandly",
   "main": "src/index.js",
   "type": "module",
@@ -16,6 +16,14 @@
   ],
   "author": "Luciano Mammino",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lmammino/rebrandly-links-export.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lmammino/rebrandly-links-export/issues"
+  },
+  "homepage": "https://github.com/lmammino/rebrandly-links-export#readme",
   "packageManager": "pnpm@10.14.0",
   "devDependencies": {
     "@biomejs/biome": "2.2.6"
