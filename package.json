@@ -1,0 +1,23 @@
+{
+  "name": "rebrandly-links-export",
+  "version": "1.0.0",
+  "description": "Export your short links from Rebrandly",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "lint": "pnpm exec biome check .",
+    "format": "pnpm exec biome check --write ."
+  },
+  "keywords": [
+    "Rebrandly",
+    "links",
+    "export",
+    "short URLs"
+  ],
+  "author": "Luciano Mammino",
+  "license": "MIT",
+  "packageManager": "pnpm@10.14.0",
+  "devDependencies": {
+    "@biomejs/biome": "2.2.6"
+  }
+}
